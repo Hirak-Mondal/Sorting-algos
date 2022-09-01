@@ -1,0 +1,74 @@
+#include <bits/stdc++.h>
+using namespace std;
+void FIO()
+{
+#ifndef ONLINE_JUDGE
+    freopen("input.txt", "r", stdin);
+    freopen("output.txt", "w", stdout);
+#endif
+}
+void merge(int a[], int l, int mid, int h)
+{
+    int i = l, j = mid + 1, k = l;
+    int b[h + 1];
+    while(i <= mid && j <= h)
+    {
+        if(a[i] < a[j])
+            b[k++] = a[i++];
+        else
+            b[k++] = a[j++];
+    }
+    for(; i <= mid; i++)
+        b[k++]= a[i];
+    for(; j <= h; j++)
+        b[k++] = a[j];
+    for(i = l; i <= h; i++)
+        a[i] = b[i];
+
+}
+//void MergeSort(int arr[], int start, int end)
+//{
+//    if(start >= end)
+//        return;
+//    int mid = start + ((end-start)/2);
+//    MergeSort(arr, start, mid);
+//    MergeSort(arr, mid + 1, end);
+//    merge(arr, start, mid, end);
+//
+//}
+void mergeSort(int arr[], int start, int end, int mid)
+    {
+        if(start >= end)
+        return;
+        mid = start + ((end-start)/2);
+        mergeSort(arr, start, mid);
+        mergeSort(arr, mid + 1, end);
+        merge(arr, start, mid, end);
+        return;
+    }
+    void mergeSort(int arr[], int start, int end)
+    {
+        if(start >= end)
+        return;
+        int mid = start + ((end-start)/2);
+        mergeSort(arr, start, end, mid);
+        
+        return;
+    }
+int main()
+{
+    FIO();
+    int n;
+    cin >> n;
+    int A[n];
+    for(int i = 0; i < n; i++)
+    {
+        cin>> A[i];
+    }
+    MergeSort(A,0,n-1);
+    for(int i = 0; i < n; i++)
+    {
+        cout<< A[i] << " ";
+    }
+    return 0;
+}

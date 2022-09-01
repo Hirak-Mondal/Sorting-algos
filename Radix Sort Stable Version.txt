@@ -1,0 +1,62 @@
+//https://www.youtube.com/watch?v=a5e7RgCdel0&list=PL-Jc9J83PIiFc7hJ5eeCb579PS8p-en4f&index=10
+//for better understanding watch pepcoding video
+
+#include <bits/stdc++.h>
+using namespace std;
+void FIO()
+{
+#ifndef ONLINE_JUDGE
+    freopen("input.txt", "r", stdin);
+    freopen("output.txt", "w", stdout);
+#endif
+}
+void CountSort(int arr[], int n, int exp)
+{
+    int h[10];  
+    int ans[n];                   
+    for(int i = 0; i < 10 ; i++) { h[i] = 0;} 
+    for(int i = 0; i < n; i++)
+    {
+        h[arr[i] / exp % 10]++;
+    }
+    for(int i = 1; i < 10; i++)
+    {
+        h[i] += h[i - 1];
+    }
+    for(int i = n - 1; i >= 0; i--)
+    {
+        int pos = h[arr[i] / exp % 10]- 1;
+        ans[pos] = arr[i];
+        h[arr[i] / exp % 10]--;
+    }
+    for(int i = 0; i < n; i++) {arr[i] = ans[i];}//copy ans to arr
+    return;
+}
+void RadixSort(int arr[], int n)
+{
+    int max = *max_element(arr, arr + n);
+    int exp = 1;
+    while(exp <= max)
+    {
+        CountSort(arr, n, exp);
+        exp = exp * 10;
+    }
+    return;
+}
+int main()
+{
+    FIO();
+    int n;
+    cin >> n;
+    int A[n];
+    for(int i = 0; i < n; i++)
+    {
+        cin>> A[i];
+    }
+    RadixSort(A, n);
+    for(int i = 0; i < n; i++)
+    {
+        cout<< A[i] << " ";
+    }
+    return 0;
+}
